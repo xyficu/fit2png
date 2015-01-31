@@ -7,25 +7,35 @@ import pyfits
 import time
 
 
-
 """
 #author:  xyf
 #email:   xyficu@nao.cas.cn
 #Date:    20140829
 
 update history
+20150131    add print help message function
 20141014    add time information on the top left corner
 20140902    fix the float number error of inputing float coordinates
             if the -s is empty, the circle will not be painted
             change output file format to JPEG
 """
 
+def PrtHelpMsg():
+    print "version: " + version
+    print """
+        convert fits file to jpg with assigned size
+        usage: inputfile outputfile x y border string
+        """
 
-version = "0.1.2" 
+
+version = "0.1.3" 
 
 def FitsCutToPng(inputfile, outputfile, x, y, a, s):
+
     """
         convert fits file to png/jpg with assigned size
+        
+        usage: inputfile outputfile x y border string
         
         -inputfile     the input fits file name including path
         -outputfile    the output png file name including path
@@ -33,9 +43,8 @@ def FitsCutToPng(inputfile, outputfile, x, y, a, s):
         -y             coordinate y
         -a             border of the square picture around (x, y)
         -s             the string under the circled star
-        """
-   
-   
+        
+    """
     if(x<0 or x>3056 or y<0 or y>3056 or a<0 or a>3056):
         print "x or y or a is out of border, please check!"
         return
@@ -97,12 +106,11 @@ def FitsCutToPng(inputfile, outputfile, x, y, a, s):
     
     
 if __name__ == '__main__':    
-    print "version: " + version
-    
+
     if len(sys.argv)==7:
         FitsCutToPng(str(sys.argv[1]), str(sys.argv[2]), int(float(sys.argv[3])), int(float(sys.argv[4])), int(float(sys.argv[5])), str(sys.argv[6]))
     else:
-        print "Arguments are not correct!"
+        PrtHelpMsg()
         
     
 
